@@ -11,7 +11,51 @@ int createZombie() {
     else
         return rand() % 10 + 1;
 }
+nt gmode = DETECT, gdriver , area ;
+initgraph ( &gmode, &gdriver, "c:\tc\bgi\" ) ;
+setbkcolor(1);
+start();
+int maxx = getmaxx() ;
+int maxy = getmaxy() ;
+int p=400,q=300,m=100,n=100,x=m,y=n,key,score=0,finish=0,level=1,l_flag=1;
+char score1[5],ch,cnt_ball[5],char_level[2];
 
+	rectangle ( 0, 0, maxx, maxy - 10 ) ;
+
+	draw_burst(200,300);
+	area=imagesize(0,0,32,24);
+	burst=malloc(area);
+	getimage(200-16,300-12,200+16,300+12,burst);
+	putimage(200-16,300-12,burst,XOR_PUT);
+
+	draw_balloon(p,q);
+
+area=imagesize(p-4*BALLOON_SIZE,q-5*BALLOON_SIZE,p+4*BALLOON_SIZE,q+7*BALLOON_SIZE);
+balloon=malloc(area);
+
+getimage(p-4*BALLOON_SIZE,q-5*BALLOON_SIZE,p+4*BALLOON_SIZE,q+7*BALLOON_SIZE,balloon);
+	putimage(p-4*BALLOON_SIZE, q-5*BALLOON_SIZE, balloon, COPY_PUT);
+
+	draw_arrow(x ,y  );
+	area = imagesize(x, y-ARROW_SIZE, x+(6*ARROW_SIZE), y+ARROW_SIZE);
+	arrow=malloc(area);
+	getimage(x, y-ARROW_SIZE, x+(6*ARROW_SIZE), y+ARROW_SIZE,arrow);
+	putimage(x, y-ARROW_SIZE,arrow,XOR_PUT);
+
+	draw_bow(x,y);
+	area=imagesize(x+25,y-65,x+66,y+65);
+	bow=malloc(area);
+	getimage(x+25,y-65,x+66,y+65,bow);
+
+	if ( balloon == NULL || burst == NULL || bow == NULL )
+	{
+		printf( "
+Insufficient memory... Press any key " ) ;
+		getch() ;
+		closegraph() ;
+		restorecrtmode() ;
+		exit( 0 ) ;
+	}
 int main() {
     srand(time(NULL));
     char enter;
